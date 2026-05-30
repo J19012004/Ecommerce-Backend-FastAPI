@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from app.core.database import SessionLocal
+from app.core.security import get_current_user
 
 from app.models.product import Product
 
@@ -20,17 +21,22 @@ from app.schemas.product import (
 router = APIRouter()
 
 
-# Database Dependency
+# -------------------------
+# DATABASE DEPENDENCY
+# -------------------------
 async def get_db():
     async with SessionLocal() as session:
         yield session
 
 
+# -------------------------
 # CREATE PRODUCT
+# -------------------------
 @router.post("/", response_model=ProductResponse)
 async def create_product(
     product: ProductCreate,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user: str = Depends(get_current_user)
 ):
 
     new_product = Product(
@@ -50,7 +56,9 @@ async def create_product(
     return new_product
 
 
+# -------------------------
 # LIST PRODUCTS
+# -------------------------
 @router.get("/", response_model=list[ProductResponse])
 async def list_products(
     db: AsyncSession = Depends(get_db)
@@ -65,7 +73,9 @@ async def list_products(
     return products
 
 
+# -------------------------
 # GET PRODUCT BY ID
+# -------------------------
 @router.get("/{product_id}", response_model=ProductResponse)
 async def get_product(
     product_id: int,
@@ -73,7 +83,9 @@ async def get_product(
 ):
 
     result = await db.execute(
-        select(Product).where(Product.id == product_id)
+        select(Product).where(
+            Product.id == product_id
+        )
     )
 
     product = result.scalar_one_or_none()
@@ -87,16 +99,21 @@ async def get_product(
     return product
 
 
+# -------------------------
 # UPDATE PRODUCT
+# -------------------------
 @router.put("/{product_id}", response_model=ProductResponse)
 async def update_product(
     product_id: int,
     product_data: ProductUpdate,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user: str = Depends(get_current_user)
 ):
 
     result = await db.execute(
-        select(Product).where(Product.id == product_id)
+        select(Product).where(
+            Product.id == product_id
+        )
     )
 
     product = result.scalar_one_or_none()
@@ -120,15 +137,20 @@ async def update_product(
     return product
 
 
+# -------------------------
 # DELETE PRODUCT
+# -------------------------
 @router.delete("/{product_id}")
 async def delete_product(
     product_id: int,
-    db: AsyncSession = Depends(get_db)
+    db: AsyncSession = Depends(get_db),
+    current_user: str = Depends(get_current_user)
 ):
 
     result = await db.execute(
-        select(Product).where(Product.id == product_id)
+        select(Product).where(
+            Product.id == product_id
+        )
     )
 
     product = result.scalar_one_or_none()

@@ -1,8 +1,16 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException
+)
+
+from fastapi.security import OAuth2PasswordRequestForm
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from app.core.database import SessionLocal
+
 from app.core.security import (
     hash_password,
     verify_password,
@@ -11,7 +19,8 @@ from app.core.security import (
 )
 
 from app.models.user import User
-from app.schemas.user import UserCreate, UserLogin
+
+from app.schemas.user import UserCreate
 
 router = APIRouter()
 
@@ -34,7 +43,9 @@ async def register(
 ):
 
     result = await db.execute(
-        select(User).where(User.email == user.email)
+        select(User).where(
+            User.email == user.email
+        )
     )
 
     existing_user = result.scalar_one_or_none()
@@ -47,7 +58,9 @@ async def register(
 
     new_user = User(
         email=user.email,
-        hashed_password=hash_password(user.password)
+        hashed_password=hash_password(
+            user.password
+        )
     )
 
     db.add(new_user)
@@ -64,12 +77,14 @@ async def register(
 # -------------------------
 @router.post("/login")
 async def login(
-    user: UserLogin,
+    form_data: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db)
 ):
 
     result = await db.execute(
-        select(User).where(User.email == user.email)
+        select(User).where(
+            User.email == form_data.username
+        )
     )
 
     db_user = result.scalar_one_or_none()
@@ -81,7 +96,7 @@ async def login(
         )
 
     valid_password = verify_password(
-        user.password,
+        form_data.password,
         db_user.hashed_password
     )
 
@@ -108,7 +123,9 @@ async def login(
 # -------------------------
 @router.get("/me")
 async def get_me(
-    current_user: str = Depends(get_current_user)
+    current_user: str = Depends(
+        get_current_user
+    )
 ):
     return {
         "email": current_user
