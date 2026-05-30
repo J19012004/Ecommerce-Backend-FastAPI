@@ -7,12 +7,14 @@ from app.models.user import User
 from app.models.category import Category
 from app.models.product import Product
 from app.models.cart import Cart
+from app.models.order import Order
 
 # Routers
 from app.api.v1.endpoints.auth import router as auth_router
 from app.api.v1.endpoints.products import router as product_router
 from app.api.v1.endpoints.categories import router as category_router
 from app.api.v1.endpoints.cart import router as cart_router
+from app.api.v1.endpoints.orders import router as order_router
 
 app = FastAPI(
     title="Ecommerce API"
@@ -82,6 +84,16 @@ app.include_router(
     cart_router,
     prefix="/cart",
     tags=["Cart"]
+)
+
+
+# -----------------------------
+# ORDER ROUTES
+# -----------------------------
+app.include_router(
+    order_router,
+    prefix="/orders",
+    tags=["Orders"]
 )
 
 

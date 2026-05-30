@@ -1,7 +1,8 @@
 from sqlalchemy import (
     Column,
     Integer,
-    String,
+    Float,
+    ForeignKey,
     DateTime,
     func
 )
@@ -11,8 +12,8 @@ from sqlalchemy.orm import relationship
 from app.core.database import Base
 
 
-class User(Base):
-    __tablename__ = "users"
+class Order(Base):
+    __tablename__ = "orders"
 
     id = Column(
         Integer,
@@ -20,15 +21,13 @@ class User(Base):
         index=True
     )
 
-    email = Column(
-        String,
-        unique=True,
-        index=True,
-        nullable=False
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id")
     )
 
-    hashed_password = Column(
-        String,
+    total_amount = Column(
+        Float,
         nullable=False
     )
 
@@ -37,11 +36,6 @@ class User(Base):
         server_default=func.now()
     )
 
-    cart_items = relationship(
-        "Cart",
-        back_populates="user"
-    )
-
-    orders = relationship(
-        "Order"
+    user = relationship(
+        "User"
     )
