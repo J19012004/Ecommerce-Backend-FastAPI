@@ -14,15 +14,28 @@ from app.core.database import Base
 class Product(Base):
     __tablename__ = "products"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
 
-    name = Column(String, nullable=False)
+    name = Column(
+        String,
+        nullable=False
+    )
 
     description = Column(String)
 
-    price = Column(Float, nullable=False)
+    price = Column(
+        Float,
+        nullable=False
+    )
 
-    stock = Column(Integer, default=0)
+    stock = Column(
+        Integer,
+        default=0
+    )
 
     category_id = Column(
         Integer,
@@ -32,4 +45,9 @@ class Product(Base):
     category = relationship(
         "Category",
         back_populates="products"
+    )
+
+    cart_items = relationship(
+        "Cart",
+        back_populates="product"
     )

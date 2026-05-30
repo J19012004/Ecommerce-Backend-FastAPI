@@ -2,17 +2,21 @@ from fastapi import FastAPI
 
 from app.core.database import engine, Base
 
-# Import models so SQLAlchemy creates tables
+# Models
 from app.models.user import User
-from app.models.product import Product
 from app.models.category import Category
+from app.models.product import Product
+from app.models.cart import Cart
 
 # Routers
 from app.api.v1.endpoints.auth import router as auth_router
 from app.api.v1.endpoints.products import router as product_router
 from app.api.v1.endpoints.categories import router as category_router
+from app.api.v1.endpoints.cart import router as cart_router
 
-app = FastAPI(title="Ecommerce API")
+app = FastAPI(
+    title="Ecommerce API"
+)
 
 
 # -----------------------------
@@ -20,7 +24,9 @@ app = FastAPI(title="Ecommerce API")
 # -----------------------------
 @app.get("/")
 async def root():
-    return {"message": "Ecommerce API is running"}
+    return {
+        "message": "Ecommerce API is running"
+    }
 
 
 # -----------------------------
@@ -30,7 +36,9 @@ async def root():
 async def db_check():
 
     async with engine.begin() as conn:
-        await conn.run_sync(lambda _: None)
+        await conn.run_sync(
+            lambda _: None
+        )
 
     return {
         "message": "Database connection successful"
@@ -38,7 +46,7 @@ async def db_check():
 
 
 # -----------------------------
-# ROUTERS
+# AUTH ROUTES
 # -----------------------------
 app.include_router(
     auth_router,
@@ -46,16 +54,34 @@ app.include_router(
     tags=["Auth"]
 )
 
+
+# -----------------------------
+# PRODUCT ROUTES
+# -----------------------------
 app.include_router(
     product_router,
     prefix="/products",
     tags=["Products"]
 )
 
+
+# -----------------------------
+# CATEGORY ROUTES
+# -----------------------------
 app.include_router(
     category_router,
     prefix="/categories",
     tags=["Categories"]
+)
+
+
+# -----------------------------
+# CART ROUTES
+# -----------------------------
+app.include_router(
+    cart_router,
+    prefix="/cart",
+    tags=["Cart"]
 )
 
 
