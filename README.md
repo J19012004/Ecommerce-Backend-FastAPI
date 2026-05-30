@@ -1,11 +1,11 @@
-# 🛒 Ecommerce Backend System (FastAPI)
+# Ecommerce Backend System (FastAPI)
 
 A scalable and secure backend system for an ecommerce application built using FastAPI and PostgreSQL.  
 The project implements authentication, product management, cart functionality, and order processing with a modular backend architecture.
 
 ---
 
-## 🚀 Features
+## Features
 
 - Secure user authentication using JWT
 - Product and category management (CRUD APIs)
@@ -18,7 +18,7 @@ The project implements authentication, product management, cart functionality, a
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Python
 - FastAPI
@@ -31,12 +31,12 @@ The project implements authentication, product management, cart functionality, a
 
 ---
 
-## 🧱 System Architecture
+## System Architecture
 Authentication → Products → Categories → Cart → Orders
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 app/
 ├── api/
 │ └── v1/endpoints/
@@ -47,7 +47,7 @@ app/
 
 ---
 
-## ⚙️ Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the repository
 
@@ -75,14 +75,14 @@ uvicorn app.main:app --reload
 
 ---
 
-## 📌 API Documentation
+## API Documentation
 After running the server, access Swagger UI:
 
 http://127.0.0.1:8000/docs
 
 ---
 
-## 🔐 Authentication Flow
+## Authentication Flow
 1.Register user → /auth/register
 2.Login user → /auth/login
 3.Copy JWT token
@@ -91,7 +91,7 @@ http://127.0.0.1:8000/docs
 
 ---
 
-## 📦 Modules
+## Modules
 -Authentication Module (JWT)
 -Product Management
 -Category Management
@@ -100,7 +100,7 @@ http://127.0.0.1:8000/docs
 
 ---
 
-## 📊 Project Highlights
+## Project Highlights
 -Built modular backend architecture using FastAPI
 -Implemented secure JWT-based authentication system
 -Designed relational database schema using SQLAlchemy ORM
@@ -115,7 +115,7 @@ GitHub: https://github.com/J19012004
 
 ---
 
-## 📌 Future Improvements
+## Future Improvements
 -Redis caching for performance optimization
 -Docker containerization
 -CI/CD pipeline with GitHub Actions
