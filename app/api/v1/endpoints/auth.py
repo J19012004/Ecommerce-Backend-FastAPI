@@ -7,7 +7,9 @@ from app.core.security import (
     hash_password,
     verify_password,
     create_access_token,
+    get_current_user,
 )
+
 from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin
 
@@ -52,7 +54,9 @@ async def register(
 
     await db.commit()
 
-    return {"message": "User registered successfully"}
+    return {
+        "message": "User registered successfully"
+    }
 
 
 # -------------------------
@@ -88,10 +92,24 @@ async def login(
         )
 
     access_token = create_access_token(
-        data={"sub": db_user.email}
+        data={
+            "sub": db_user.email
+        }
     )
 
     return {
         "access_token": access_token,
         "token_type": "bearer"
+    }
+
+
+# -------------------------
+# CURRENT USER
+# -------------------------
+@router.get("/me")
+async def get_me(
+    current_user: str = Depends(get_current_user)
+):
+    return {
+        "email": current_user
     }

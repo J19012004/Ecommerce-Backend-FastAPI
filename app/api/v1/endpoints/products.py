@@ -1,11 +1,19 @@
-from fastapi import APIRouter, Depends
+from fastapi import (
+    APIRouter,
+    Depends,
+    HTTPException
+)
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
 from app.core.database import SessionLocal
+
 from app.models.product import Product
+
 from app.schemas.product import (
     ProductCreate,
+    ProductUpdate,
     ProductResponse
 )
 
@@ -55,3 +63,86 @@ async def list_products(
     products = result.scalars().all()
 
     return products
+
+
+# GET PRODUCT BY ID
+@router.get("/{product_id}", response_model=ProductResponse)
+async def get_product(
+    product_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+
+    result = await db.execute(
+        select(Product).where(Product.id == product_id)
+    )
+
+    product = result.scalar_one_or_none()
+
+    if not product:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    return product
+
+
+# UPDATE PRODUCT
+@router.put("/{product_id}", response_model=ProductResponse)
+async def update_product(
+    product_id: int,
+    product_data: ProductUpdate,
+    db: AsyncSession = Depends(get_db)
+):
+
+    result = await db.execute(
+        select(Product).where(Product.id == product_id)
+    )
+
+    product = result.scalar_one_or_none()
+
+    if not product:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    product.name = product_data.name
+    product.description = product_data.description
+    product.price = product_data.price
+    product.stock = product_data.stock
+    product.category_id = product_data.category_id
+
+    await db.commit()
+
+    await db.refresh(product)
+
+    return product
+
+
+# DELETE PRODUCT
+@router.delete("/{product_id}")
+async def delete_product(
+    product_id: int,
+    db: AsyncSession = Depends(get_db)
+):
+
+    result = await db.execute(
+        select(Product).where(Product.id == product_id)
+    )
+
+    product = result.scalar_one_or_none()
+
+    if not product:
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+
+    await db.delete(product)
+
+    await db.commit()
+
+    return {
+        "message": "Product deleted successfully"
+    }

@@ -9,6 +9,14 @@ class ProductCreate(BaseModel):
     category_id: int
 
 
+class ProductUpdate(BaseModel):
+    name: str
+    description: str
+    price: float
+    stock: int
+    category_id: int
+
+
 class ProductResponse(BaseModel):
     id: int
     name: str
