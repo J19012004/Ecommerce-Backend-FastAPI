@@ -65,7 +65,7 @@ pip install -r requirements.txt
 
 ### 4. Configure environment variables
 
- DATABASE_URL=your_database_url
+DATABASE_URL=your_database_url
 JWT_SECRET_KEY=your_secret_key
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
@@ -83,29 +83,29 @@ http://127.0.0.1:8000/docs
 ---
 
 ## Authentication Flow
-1.Register user → /auth/register
-2.Login user → /auth/login
-3.Copy JWT token
-4.Click Authorize in Swagger UI
-5.Access protected endpoints
+1. Register user → /auth/register
+2. Login user → /auth/login
+3. Copy JWT token
+4. Click Authorize in Swagger UI
+5. Access protected endpoints
 
 ---
 
 ## Modules
--Authentication Module (JWT)
--Product Management
--Category Management
--Cart System
--Order Management
+- Authentication Module (JWT)
+- Product Management
+- Category Management
+- Cart System
+- Order Management
 
 ---
 
 ## Project Highlights
--Built modular backend architecture using FastAPI
--Implemented secure JWT-based authentication system
--Designed relational database schema using SQLAlchemy ORM
--Developed full ecommerce workflow from product to order
--Integrated Swagger/OpenAPI for API testing and documentation
+- Built modular backend architecture using FastAPI
+- Implemented secure JWT-based authentication system
+- Designed relational database schema using SQLAlchemy ORM
+- Developed full ecommerce workflow from product to order
+- Integrated Swagger/OpenAPI for API testing and documentation
 
 ---
 
@@ -116,8 +116,8 @@ GitHub: https://github.com/J19012004
 ---
 
 ## Future Improvements
--Redis caching for performance optimization
--Docker containerization
--CI/CD pipeline with GitHub Actions
+- Redis caching for performance optimization
+- Docker containerization
+- CI/CD pipeline with GitHub Actions
 
 
