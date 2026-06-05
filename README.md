@@ -1,7 +1,8 @@
 # Ecommerce Backend System (FastAPI)
 
-A scalable and secure backend system for an ecommerce application built using FastAPI and PostgreSQL.  
-The project implements authentication, product management, cart functionality, and order processing with a modular backend architecture.
+A scalable and secure backend system for an ecommerce application built using **FastAPI** and **PostgreSQL**. The project implements authentication, product management, cart functionality, and order processing with a clean modular architecture.
+
+🔗 **Live API:** https://ecommerce-backend-fastapi-kula.onrender.com/docs
 
 ---
 
@@ -12,9 +13,9 @@ The project implements authentication, product management, cart functionality, a
 - Shopping cart system for users
 - Order placement and order history tracking
 - Protected routes with authorization
-- Relational database design with SQLAlchemy ORM
+- Relational database design with SQLAlchemy Async ORM
 - RESTful API architecture
-- Interactive API documentation using Swagger/OpenAPI
+- Interactive API documentation using Swagger / OpenAPI
 
 ---
 
@@ -31,93 +32,116 @@ The project implements authentication, product management, cart functionality, a
 
 ---
 
-## System Architecture
-Authentication → Products → Categories → Cart → Orders
-
----
-
 ## Project Structure
+
+```
 app/
 ├── api/
-│ └── v1/endpoints/
+│   └── v1/
+│       └── endpoints/
+│           ├── auth.py
+│           ├── products.py
+│           ├── categories.py
+│           ├── cart.py
+│           └── orders.py
 ├── core/
+│   ├── config.py
+│   ├── database.py
+│   └── security.py
 ├── models/
 ├── schemas/
 └── main.py
+```
 
 ---
 
-## Setup Instructions
+## API Modules
 
-### 1. Clone the repository
-
-git clone https://github.com/J19012004/ecommerce-api.git
-cd ecommerce-api
-
-
-### 2. Create virtual environment
-
-python -m venv venv
-venv\Scripts\activate  
-
-### 3. Install dependencies
-pip install -r requirements.txt
-
-### 4. Configure environment variables
-
- DATABASE_URL=your_database_url
- JWT_SECRET_KEY=your_secret_key
- JWT_ALGORITHM=HS256
- ACCESS_TOKEN_EXPIRE_MINUTES=30
-
- ### 5.Run the application
-uvicorn app.main:app --reload
-
----
-
-## API Documentation
-After running the server, access Swagger UI:
-
-http://127.0.0.1:8000/docs
+- **Authentication** — Register, Login, JWT token generation
+- **Products** — Create, Read, Update, Delete products
+- **Categories** — Manage product categories
+- **Cart** — Add/remove items, view cart
+- **Orders** — Place orders, view order history
 
 ---
 
 ## Authentication Flow
-1. Register user → /auth/register
-2. Login user → /auth/login
-3. Copy JWT token
-4. Click Authorize in Swagger UI
-5. Access protected endpoints
+
+1. Register → `POST /auth/register`
+2. Login → `POST /auth/login` → receive JWT token
+3. Click **Authorize** in Swagger UI
+4. Paste token to access protected endpoints
 
 ---
 
-## Modules
-- Authentication Module (JWT)
-- Product Management
-- Category Management
-- Cart System
-- Order Management
+## Local Setup
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/J19012004/Ecommerce-Backend-FastAPI.git
+cd Ecommerce-Backend-FastAPI
+```
+
+### 2. Create virtual environment
+```bash
+python -m venv venv
+venv\Scripts\activate   # Windows
+source venv/bin/activate  # Mac/Linux
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Configure environment variables
+
+Create a `.env` file in the root directory:
+```env
+POSTGRES_USER=your_db_user
+POSTGRES_PASSWORD=your_db_password
+POSTGRES_DB=your_db_name
+POSTGRES_HOST=your_db_host
+POSTGRES_PORT=5432
+JWT_SECRET_KEY=your_secret_key
+JWT_ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+REDIS_URL=redis://localhost:6379
+```
+
+### 5. Run the application
+```bash
+uvicorn app.main:app --reload
+```
+
+### 6. Access Swagger UI
+```
+http://127.0.0.1:8000/docs
+```
 
 ---
 
-## Project Highlights
-- Built modular backend architecture using FastAPI
-- Implemented secure JWT-based authentication system
-- Designed relational database schema using SQLAlchemy ORM
-- Developed full ecommerce workflow from product to order
-- Integrated Swagger/OpenAPI for API testing and documentation
+## Live Demo
 
----
+The API is deployed on Render and accessible at:
 
-## Author
-Jerminn Rebekka M
-GitHub: https://github.com/J19012004
+👉 **https://ecommerce-backend-fastapi-kula.onrender.com/docs**
+Note: Free instance may take ~50 seconds to wake up on first request.
+
 
 ---
 
 ## Future Improvements
+
 - Redis caching for performance optimization
 - Docker containerization
 - CI/CD pipeline with GitHub Actions
+- Unit and integration tests with pytest
 
+---
+
+## Author
+
+**Jerminn Rebekka M**  
+GitHub: [@J19012004](https://github.com/J19012004)
 
