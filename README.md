@@ -65,10 +65,10 @@ pip install -r requirements.txt
 
 ### 4. Configure environment variables
 
-DATABASE_URL=your_database_url
-JWT_SECRET_KEY=your_secret_key
-JWT_ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
+ DATABASE_URL=your_database_url
+ JWT_SECRET_KEY=your_secret_key
+ JWT_ALGORITHM=HS256
+ ACCESS_TOKEN_EXPIRE_MINUTES=30
 
  ### 5.Run the application
 uvicorn app.main:app --reload
