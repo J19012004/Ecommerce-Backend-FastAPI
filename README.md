@@ -131,15 +131,6 @@ Note: Free instance may take ~50 seconds to wake up on first request.
 
 ---
 
-## Future Improvements
-
-- Redis caching for performance optimization
-- Docker containerization
-- CI/CD pipeline with GitHub Actions
-- Unit and integration tests with pytest
-
----
-
 ## Author
 
 **Jerminn Rebekka M**  
