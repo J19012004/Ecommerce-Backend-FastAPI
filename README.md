@@ -2,7 +2,20 @@
 
 A scalable and secure backend system for an ecommerce application built using **FastAPI** and **PostgreSQL**. The project implements authentication, product management, cart functionality, and order processing with a clean modular architecture.
 
-🔗 **Live API:** https://ecommerce-backend-fastapi-kula.onrender.com/docs
+---
+
+
+## Project Screenshots
+
+<img width="1280" height="684" alt="1780998253709" src="https://github.com/user-attachments/assets/887df5bf-a6eb-414a-a987-04faffd57aa7" />
+
+<img width="1280" height="678" alt="1780998253745" src="https://github.com/user-attachments/assets/d43ef5c7-e6ef-4362-af52-ede03c021f1a" />
+
+<img width="1280" height="656" alt="1780998253387" src="https://github.com/user-attachments/assets/5e1951e7-6083-4c27-8f02-f1c8779f2a22" />
+
+
+
+
 
 ---
 
