@@ -7,7 +7,7 @@ A scalable and secure backend system for an ecommerce application built using **
 
 ## Project Screenshots
 
----
+
 
 <img width="1280" height="684" alt="1780998253709" src="https://github.com/user-attachments/assets/887df5bf-a6eb-414a-a987-04faffd57aa7" />
 
